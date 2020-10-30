@@ -1,24 +1,58 @@
 package com.wcc.supertrunfo
 
+import com.wcc.supertrunfo.Driver
+
 class Card (
-        val vehicle: Vehicle,
-        val drivers: Driver,
-        val player: Player,
+        private val vehicle: Vehicle,
+        private val drivers: Driver,
 ) {
-    val label: String = "Card ${player.name}"
-    val maxVelocity =setMaxVelocity()
-    val accelerationTime = setAccelerationTime()
-    val passengers = setPassengers()
-}
+    val maxVelocity = initMaxVelocity()
+    val accelerationTime = initAccelerationTime()
+    val passengers = initPassengers()
+    val xp: Unit = initXP()
 
-private fun setAccelerationTime(): Int {
-    return vehicle.accelerationTime * (1 + drivers.carChampionships)
-}
+    private fun initXP() {
 
-private fun setMaxVelocity(): Int {
-    TODO("Not yet implemented")
-}
+    }
 
-private fun setPassengers(): Int {
-    return vehicle.passengers * (1 + drivers.defensiveDriving)
+
+    private fun initAccelerationTime(): Int {
+        return vehicle.accelerationTime
+    }
+
+    private fun initMaxVelocity(): Int {
+        return when (vehicle.type) {
+            "car" -> carMaxVelocity()
+            "motorcycle" -> motorcycleMaxVelocity()
+            else -> bikeMaxVelocity()
+        }
+    }
+
+    private fun bikeMaxVelocity(): Int {
+        return vehicle.maxAcceleration * drivers.boldness
+    }
+
+   private  fun motorcycleMaxVelocity(): Int {
+        return 1 / vehicle.weight * vehicle.maxAcceleration
+    }
+
+    private fun carMaxVelocity(): Int {
+        return if (vehicle.style == "sedã") {
+            vehicle.maxAcceleration
+        } else {
+            vehicle.maxAcceleration + 10
+        }
+    }
+
+    private fun initPassengers(): Int {
+        return vehicle.passengers * (1 + drivers.defensiveDriving)
+    }
+
+    private fun setXp(): Int {
+        return when (vehicle.type) {
+            "car" -> drivers.carXP
+            "motorcycle" -> drivers.motorcycleXp
+            else -> drivers.bikeXP
+        }
+    }
 }

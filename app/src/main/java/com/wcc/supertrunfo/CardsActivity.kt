@@ -13,6 +13,7 @@ class CardsActivity : AppCompatActivity() {
         val playerOneName = intent.getStringExtra("player_one") ?: "Player One"
         val playerTwoName = intent.getStringExtra("player_two") ?: "Player Two"
 
+
         val vehiculeOne = mapOf(
             "maxAcceleration" to "100",
             "accelerationTime" to "120",
@@ -23,6 +24,20 @@ class CardsActivity : AppCompatActivity() {
             "gears" to "5",
             "type" to "car"
         )
+
+        val newVehicleOne = Vehicle (
+
+            100,
+            120,
+            5,
+            120,
+            2,
+            "sedã",
+            "car",
+            5
+
+        )
+
 
         val vehiculeTwo = mapOf(
             "maxAcceleration" to "50",
