@@ -1,58 +1,49 @@
 package com.wcc.supertrunfo
 
-import com.wcc.supertrunfo.Driver
+import com.wcc.supertrunfo.entities.Driver
+import com.wcc.supertrunfo.entities.Player
+import com.wcc.supertrunfo.entities.Vehicle
+
 
 class Card (
         private val vehicle: Vehicle,
         private val drivers: Driver,
+        private val player: Player,
 ) {
     val maxVelocity = initMaxVelocity()
     val accelerationTime = initAccelerationTime()
     val passengers = initPassengers()
-    val xp: Unit = initXP()
+    val xp: Int = initXP()
 
-    private fun initXP() {
-
-    }
-
-
-    private fun initAccelerationTime(): Int {
-        return vehicle.accelerationTime
-    }
 
     private fun initMaxVelocity(): Int {
         return when (vehicle.type) {
-            "car" -> carMaxVelocity()
-            "motorcycle" -> motorcycleMaxVelocity()
-            else -> bikeMaxVelocity()
+            "car" ->
+                if (vehicle.style == "sedã") {
+                    vehicle.maxAcceleration
+                } else {
+                    vehicle.maxAcceleration + 10
+                }
+            "motorcycle" -> vehicle.weight * vehicle.maxAcceleration
+            "bike" -> vehicle.maxAcceleration * drivers.boldness
+            else -> 0
         }
     }
 
-    private fun bikeMaxVelocity(): Int {
-        return vehicle.maxAcceleration * drivers.boldness
-    }
-
-   private  fun motorcycleMaxVelocity(): Int {
-        return 1 / vehicle.weight * vehicle.maxAcceleration
-    }
-
-    private fun carMaxVelocity(): Int {
-        return if (vehicle.style == "sedã") {
-            vehicle.maxAcceleration
-        } else {
-            vehicle.maxAcceleration + 10
-        }
+    private fun initAccelerationTime(): Int {
+        return vehicle.accelerationTime
     }
 
     private fun initPassengers(): Int {
         return vehicle.passengers * (1 + drivers.defensiveDriving)
     }
 
-    private fun setXp(): Int {
+    private fun initXP(): Int {
         return when (vehicle.type) {
             "car" -> drivers.carXP
             "motorcycle" -> drivers.motorcycleXp
-            else -> drivers.bikeXP
+            "bike" -> drivers.bikeXP
+            else -> 0
         }
     }
 }

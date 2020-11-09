@@ -25,20 +25,6 @@ class CardsActivity : AppCompatActivity() {
             "type" to "car"
         )
 
-        val newVehicleOne = Vehicle (
-
-            100,
-            120,
-            5,
-            120,
-            2,
-            "sedã",
-            "car",
-            5
-
-        )
-
-
         val vehiculeTwo = mapOf(
             "maxAcceleration" to "50",
             "accelerationTime" to "60",
