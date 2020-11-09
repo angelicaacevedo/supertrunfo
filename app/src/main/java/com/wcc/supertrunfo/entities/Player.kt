@@ -1,6 +1,6 @@
 package com.wcc.supertrunfo.entities
 
 class Player(
-    var name: String,
+    val name: String,
     var isWinner: Boolean = false
 )

@@ -1,4 +1,4 @@
-package com.wcc.supertrunfo
+package com.wcc.supertrunfo.interactors
 
 import com.wcc.supertrunfo.entities.Driver
 import com.wcc.supertrunfo.entities.Player
@@ -8,8 +8,9 @@ import com.wcc.supertrunfo.entities.Vehicle
 class Card (
         private val vehicle: Vehicle,
         private val drivers: Driver,
-        private val player: Player,
+        private val player: Player = Player("player")
 ) {
+    val label: String = "Olá ${player.name}"
     val maxVelocity = initMaxVelocity()
     val accelerationTime = initAccelerationTime()
     val passengers = initPassengers()
@@ -35,7 +36,7 @@ class Card (
     }
 
     private fun initPassengers(): Int {
-        return vehicle.passengers * (1 + drivers.defensiveDriving)
+        return vehicle.passengers * drivers.defensiveDriving
     }
 
     private fun initXP(): Int {
