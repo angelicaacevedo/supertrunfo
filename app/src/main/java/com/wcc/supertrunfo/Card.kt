@@ -41,7 +41,7 @@ class Card (
     private fun initXP(): Int {
         return when (vehicle.type) {
             "car" -> drivers.carXP
-            "motorcycle" -> drivers.motorcycleXp
+            "motorcycle" -> drivers.motorcycleXP
             "bike" -> drivers.bikeXP
             else -> 0
         }
